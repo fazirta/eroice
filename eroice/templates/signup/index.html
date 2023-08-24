@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up to Eroice</title>
+  <link href="{% static 'css/style.min.css' %}" rel="stylesheet" />
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body x-data="global()" x-init="themeInit()" :class="isMobileMenuOpen ? 'max-h-screen overflow-hidden relative' : ''"
+  class="dark:bg-slate-950">
+  <section>
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-gray-50">
+        <img class="" src="https://i.imgur.com/dAuC3Zo.png" alt="logo" width="150" />
+      </a>
+      <div
+        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-gray-50">
+            Create an account
+          </h1>
+          <form class="space-y-4 md:space-y-6" method="POST" action="">
+            {% csrf_token %}
+            <div>
+              <label for="username"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">Username</label>
+              {{ form.username }}
+            </div>
+            <div>
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">Email</label>
+              {{ form.email }}
+            </div>
+            <div>
+              <label for="password1"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">Password</label>
+              {{ form.password1 }}
+            </div>
+            <div>
+              <label for="password2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-50">Confirm
+                password</label>
+              {{ form.password2 }}
+            </div>
+            <button type="submit"
+              class="w-full text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">
+              Sign up
+            </button>
+            {% if form.errors %}
+            {% for field in form %}
+            {% for error in field.errors %}
+            <div id="message" class="text-sm font-medium text-gray-900 dark:text-gray-50">
+              {{ error|escape }}
+            </div>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <div id="message" class="text-sm font-medium text-gray-900 dark:text-gray-50">
+              {{ error|escape }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+              Have an account?
+              <a href="{% url 'login' %}" class="font-medium text-sky-600 hover:underline dark:text-sky-500">Log in</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="{% static 'js/script.js' %}"></script>
+  <script>
+    var form_fields = document.getElementsByTagName("input");
+    form_fields[1].placeholder = "Username";
+    form_fields[2].placeholder = "Email";
+    form_fields[3].placeholder = "••••••••";
+    form_fields[4].placeholder = "••••••••";
+    for (var field in form_fields) {
+      form_fields[field].className +=
+        "bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500";
+    }
+  </script>
+</body>
+
+</html>

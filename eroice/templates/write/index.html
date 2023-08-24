@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write | Eroice</title>
+    <link href="{% static 'css/style.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" />
+</head>
+
+<body x-data="global()" x-init="themeInit()" :class="isMobileMenuOpen ? 'max-h-screen overflow-hidden relative' : ''"
+    class="dark:bg-slate-950">
+    </div>
+    <div id="main">
+        {% include 'navbar.html' %}
+        <div>
+            <div class="container mx-auto" style="padding-bottom: 5rem !important;">
+                <form class="space-y-4 md:space-y-6" method="POST" action="">
+                    {% csrf_token %}
+                    <div>
+                        <label for="username"
+                            class="block mb-2 font-semibold text-gray-900 dark:text-gray-50">Title</label>
+                        {{ form.title }}
+                    </div>
+                    <div>
+                        <label for="email"
+                            class="block mb-2 font-semibold text-gray-900 dark:text-gray-50">Content</label>
+                        {{ form.content }}
+                    </div>
+                    <div>
+                        <label for="password1"
+                            class="block mb-2 font-semibold text-gray-900 dark:text-gray-50">Genre</label>
+                        {{ form.genre }}
+                        <div class="block my-2 text-sm font-light text-gray-900 dark:text-gray-50">Hold down “Control”,
+                            or “Command” on a Mac, to select more than one.
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="w-full text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">
+                        Publish
+                    </button>
+                </form>
+            </div>
+            {% include 'footer.html' %}
+        </div>
+        <script>
+            const classes = " bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-50 dark:focus:ring-blue-500 dark:focus:border-blue-500";
+            const input = document.getElementsByTagName("input");
+            input[1].placeholder = "Title";
+            input[1].className += classes;
+            const textarea = document.getElementsByTagName("textarea");
+            textarea[0].placeholder = "Content";
+            textarea[0].className += classes;
+            const select = document.getElementsByTagName("select");
+            select[0].placeholder = "Genre";
+            select[0].className += classes;
+        </script>
+        <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>
